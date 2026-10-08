@@ -227,43 +227,30 @@ h1 {
   font-size: clamp(1.1rem, 2vw, 1.5rem);
 }
 
-.music-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.upload-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  padding: 10px 14px;
-  background: linear-gradient(135deg, rgba(249,168,212,0.14), rgba(196,181,253,0.15));
-  border: 1px solid rgba(255,255,255,0.14);
-  color: var(--text-main);
-  cursor: pointer;
-  font-size: 0.8rem;
-}
-
-#songFile {
-  display: none;
-}
-
-.status-dot {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: var(--text-soft);
-  font-size: 0.75rem;
-}
-
-#audioPlayer {
+.song-frame {
+  position: relative;
   width: 100%;
-  accent-color: #f9a8d4;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #100a16;
+}
+
+.song-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.song-link {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  text-decoration-color: rgba(233, 213, 255, 0.55);
+  text-underline-offset: 3px;
 }
 
 @media (max-width: 600px) {

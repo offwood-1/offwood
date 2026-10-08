@@ -21,9 +21,6 @@ const lyricEl = document.getElementById('lyrics');
 const captionEl = document.getElementById('caption-pill');
 const togglePlayBtn = document.getElementById('togglePlay');
 const nextSlideBtn = document.getElementById('nextSlide');
-const audio = document.getElementById('audioPlayer');
-const songStatus = document.getElementById('songStatus');
-const songFileInput = document.getElementById('songFile');
 
 let currentIndex = 0;
 let slideshowTimer = null;
@@ -65,53 +62,11 @@ function stopSlideshow() {
   clearInterval(slideshowTimer);
 }
 
-function setAudioSource() {
-  songStatus.textContent = 'Waiting for song';
-  audio.removeAttribute('src');
-  audio.load();
-}
-
-function bindAudioEvents() {
-  audio.addEventListener('play', () => {
-    songStatus.textContent = 'Playing';
-  });
-
-  audio.addEventListener('pause', () => {
-    if (!audio.ended) {
-      songStatus.textContent = 'Paused';
-    }
-  });
-
-  audio.addEventListener('error', () => {
-    songStatus.textContent = 'Choose a valid song file';
-  });
-}
-
-songFileInput.addEventListener('change', (event) => {
-  const file = event.target.files && event.target.files[0];
-
-  if (!file) {
-    return;
-  }
-
-  const objectURL = URL.createObjectURL(file);
-  audio.src = objectURL;
-  audio.load();
-  songStatus.textContent = 'Ready to play';
-  audio.play().catch(() => {});
-});
-
 togglePlayBtn.addEventListener('click', () => {
   if (isPlaying) {
     stopSlideshow();
-    if (!audio.paused) {
-      audio.pause();
-    }
   } else {
     startSlideshow();
-    if (audio.src) {
-      audio.play().catch(() => {});
-    }
   }
 });
 
@@ -127,5 +82,3 @@ const secondSlide = slides[1];
 secondSlide.style.backgroundImage = `url("${imageFiles[1]}")`;
 
 startSlideshow();
-bindAudioEvents();
-setAudioSource();

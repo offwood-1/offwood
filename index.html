@@ -42,14 +42,20 @@
             <p class="eyebrow">Soundtrack</p>
             <h2>أنا من غيرك</h2>
           </div>
-          <div class="music-actions">
-            <label class="upload-btn" for="songFile">Choose song</label>
-            <input id="songFile" type="file" accept="audio/*" />
-            <span class="status-dot" id="songStatus">Waiting for song</span>
-          </div>
         </div>
 
-        <audio id="audioPlayer" controls preload="metadata" aria-label="Audio player"></audio>
+        <div class="song-frame">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/H9MUAiBeb3w?rel=0"
+            title="أنا من غيرك — YouTube"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <a class="song-link" href="https://youtu.be/H9MUAiBeb3w" target="_blank" rel="noopener noreferrer">
+          Open song on YouTube
+        </a>
       </section>
     </main>
 
