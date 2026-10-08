@@ -8,12 +8,21 @@ const imageFiles = [
 ];
 
 const captions = [
-  'I’d make your morning tea just right, because your little smile is worth every tiny detail.',
-  'I’d leave a sweet note in your bag, so you find a little piece of my love during the day.',
-  'I’d reach for your hand on every walk, just to remind you I’m always by your side.',
-  'I’d save you the last bite of dessert, because sharing it with you makes it sweeter.',
-  'I’d wrap you in my hoodie when you’re cold, then keep you close for one more minute.',
-  'I’d kiss your forehead before you sleep and whisper, “I choose you, today and always.”'
+  'بحبك يا حياتى',
+  'بموت فيكى يا روح قلبى',
+  'بعشق كل حته فيكى و كل حاجه بتعمليه',
+  'i love u till the end of the world',
+  'i would walk across the galaxies just to see ur face once',
+  'بحبك بحبك بحبك يا حته منى'
+];
+
+const gestureTitles = [
+  'Your tea, just the way you like it',
+  'A little love note for your day',
+  'Always reaching for your hand',
+  'Saving you the sweetest last bite',
+  'My hoodie and one more cuddle',
+  'A goodnight kiss, every night'
 ];
 
 const slides = Array.from(document.querySelectorAll('.slide'));
@@ -43,9 +52,9 @@ function updateSlide(index) {
   activeSlideIndex = (activeSlideIndex + 1) % slides.length;
 
   lyricEl.textContent = captions[currentIndex];
-  lyricEl.lang = 'en';
-  lyricEl.dir = 'ltr';
-  captionEl.textContent = `Photo ${currentIndex + 1} of ${imageFiles.length}`;
+  lyricEl.lang = [0, 1, 2, 5].includes(currentIndex) ? 'ar' : 'en';
+  lyricEl.dir = lyricEl.lang === 'ar' ? 'rtl' : 'ltr';
+  captionEl.textContent = gestureTitles[currentIndex];
 }
 
 function advanceSlide() {
@@ -80,8 +89,9 @@ const initialSlide = slides[0];
 initialSlide.style.backgroundImage = `url("${imageFiles[0]}")`;
 initialSlide.classList.add('active');
 lyricEl.textContent = captions[0];
-lyricEl.lang = 'en';
-lyricEl.dir = 'ltr';
+lyricEl.lang = 'ar';
+lyricEl.dir = 'rtl';
+captionEl.textContent = gestureTitles[0];
 
 const secondSlide = slides[1];
 secondSlide.style.backgroundImage = `url("${imageFiles[1]}")`;
