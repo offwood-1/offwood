@@ -7,13 +7,13 @@ const imageFiles = [
   'assets/pic-6.jpg'
 ];
 
-const lyrics = [
-  'أنا من غيرك',
-  'معك كل حلوة',
-  'أحبك أكثر من الكلمات',
-  'أنت حياتي',
-  'Forever us',
-  'My love'
+const captions = [
+  'بحبك يا حياتى',
+  'بموت فيكى يا روح قلبى',
+  'بعشق كل حته فيكى و كل حاجه بتعمليه',
+  'i love u till the end of the world',
+  'i would walk across the galaxies just to see ur face once',
+  'بحبك بحبك بحبك يا حته منى'
 ];
 
 const slides = Array.from(document.querySelectorAll('.slide'));
@@ -42,8 +42,10 @@ function updateSlide(index) {
 
   activeSlideIndex = (activeSlideIndex + 1) % slides.length;
 
-  lyricEl.textContent = lyrics[currentIndex % lyrics.length];
-  captionEl.textContent = currentIndex === 0 ? 'Forever story' : 'Our memories';
+  lyricEl.textContent = captions[currentIndex];
+  lyricEl.lang = currentIndex === 0 || currentIndex === 1 || currentIndex === 2 || currentIndex === 5 ? 'ar' : 'en';
+  lyricEl.dir = lyricEl.lang === 'ar' ? 'rtl' : 'ltr';
+  captionEl.textContent = `Photo ${currentIndex + 1} of ${imageFiles.length}`;
 }
 
 function advanceSlide() {
@@ -77,6 +79,9 @@ nextSlideBtn.addEventListener('click', () => {
 const initialSlide = slides[0];
 initialSlide.style.backgroundImage = `url("${imageFiles[0]}")`;
 initialSlide.classList.add('active');
+lyricEl.textContent = captions[0];
+lyricEl.lang = 'ar';
+lyricEl.dir = 'rtl';
 
 const secondSlide = slides[1];
 secondSlide.style.backgroundImage = `url("${imageFiles[1]}")`;
