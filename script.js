@@ -8,12 +8,12 @@ const imageFiles = [
 ];
 
 const captions = [
-  'بحبك يا حياتى',
-  'بموت فيكى يا روح قلبى',
-  'بعشق كل حته فيكى و كل حاجه بتعمليه',
-  'i love u till the end of the world',
-  'i would walk across the galaxies just to see ur face once',
-  'بحبك بحبك بحبك يا حته منى'
+  'I’d make your morning tea just right, because your little smile is worth every tiny detail.',
+  'I’d leave a sweet note in your bag, so you find a little piece of my love during the day.',
+  'I’d reach for your hand on every walk, just to remind you I’m always by your side.',
+  'I’d save you the last bite of dessert, because sharing it with you makes it sweeter.',
+  'I’d wrap you in my hoodie when you’re cold, then keep you close for one more minute.',
+  'I’d kiss your forehead before you sleep and whisper, “I choose you, today and always.”'
 ];
 
 const slides = Array.from(document.querySelectorAll('.slide'));
@@ -43,8 +43,8 @@ function updateSlide(index) {
   activeSlideIndex = (activeSlideIndex + 1) % slides.length;
 
   lyricEl.textContent = captions[currentIndex];
-  lyricEl.lang = currentIndex === 0 || currentIndex === 1 || currentIndex === 2 || currentIndex === 5 ? 'ar' : 'en';
-  lyricEl.dir = lyricEl.lang === 'ar' ? 'rtl' : 'ltr';
+  lyricEl.lang = 'en';
+  lyricEl.dir = 'ltr';
   captionEl.textContent = `Photo ${currentIndex + 1} of ${imageFiles.length}`;
 }
 
@@ -55,7 +55,7 @@ function advanceSlide() {
 function startSlideshow() {
   isPlaying = true;
   togglePlayBtn.textContent = 'Pause';
-  slideshowTimer = setInterval(advanceSlide, 4200);
+  slideshowTimer = setInterval(advanceSlide, 6500);
 }
 
 function stopSlideshow() {
@@ -80,8 +80,8 @@ const initialSlide = slides[0];
 initialSlide.style.backgroundImage = `url("${imageFiles[0]}")`;
 initialSlide.classList.add('active');
 lyricEl.textContent = captions[0];
-lyricEl.lang = 'ar';
-lyricEl.dir = 'rtl';
+lyricEl.lang = 'en';
+lyricEl.dir = 'ltr';
 
 const secondSlide = slides[1];
 secondSlide.style.backgroundImage = `url("${imageFiles[1]}")`;
