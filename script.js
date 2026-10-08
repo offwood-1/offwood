@@ -1,37 +1,131 @@
-const sparkleContainer = document.getElementById('sparkles');
-const petalField = document.getElementById('petalField');
+const imageFiles = [
+  'assets/pic-1.jpg',
+  'assets/pic-2.jpg',
+  'assets/pic-3.jpg',
+  'assets/pic-4.png',
+  'assets/pic-5.jpg',
+  'assets/pic-6.jpg'
+];
 
-function createSparkles() {
-  for (let i = 0; i < 18; i++) {
-    const sparkle = document.createElement('span');
-    sparkle.className = 'sparkle';
-    sparkle.style.left = `${Math.random() * 100}%`;
-    sparkle.style.top = `${Math.random() * 100}%`;
-    sparkle.style.animationDelay = `${Math.random() * 2.5}s`;
-    sparkle.style.animationDuration = `${1.6 + Math.random() * 2.5}s`;
-    sparkleContainer.appendChild(sparkle);
-  }
+const lyrics = [
+  'أنا من غيرك',
+  'معك كل حلوة',
+  'أحبك أكثر من الكلمات',
+  'أنت حياتي',
+  'Forever us',
+  'My love'
+];
+
+const slides = Array.from(document.querySelectorAll('.slide'));
+const lyricEl = document.getElementById('lyrics');
+const captionEl = document.getElementById('caption-pill');
+const togglePlayBtn = document.getElementById('togglePlay');
+const nextSlideBtn = document.getElementById('nextSlide');
+const audio = document.getElementById('audioPlayer');
+const songStatus = document.getElementById('songStatus');
+const songFileInput = document.getElementById('songFile');
+
+let currentIndex = 0;
+let slideshowTimer = null;
+let isPlaying = true;
+let activeSlideIndex = 0;
+
+function updateSlide(index) {
+  currentIndex = (index + imageFiles.length) % imageFiles.length;
+
+  const previousSlide = slides[activeSlideIndex];
+  const nextSlide = slides[(activeSlideIndex + 1) % slides.length];
+
+  previousSlide.classList.remove('active');
+  previousSlide.setAttribute('aria-hidden', 'true');
+
+  nextSlide.style.backgroundImage = `url("${imageFiles[currentIndex]}")`;
+  nextSlide.classList.add('active');
+  nextSlide.setAttribute('aria-hidden', 'false');
+
+  activeSlideIndex = (activeSlideIndex + 1) % slides.length;
+
+  lyricEl.textContent = lyrics[currentIndex % lyrics.length];
+  captionEl.textContent = currentIndex === 0 ? 'Forever story' : 'Our memories';
 }
 
-function createPetals() {
-  const count = 38;
-  for (let i = 0; i < count; i++) {
-    const petal = document.createElement('span');
-    petal.className = 'petal';
-    const startX = 18 + Math.random() * 64;
-    const size = 10 + Math.random() * 18;
-    petal.style.left = `${startX}%`;
-    petal.style.top = `${-8 - Math.random() * 16}%`;
-    petal.style.width = `${size}px`;
-    petal.style.height = `${size * 1.6}px`;
-    petal.style.setProperty('--dx', `${(Math.random() - 0.5) * 200}px`);
-    petal.style.setProperty('--rot', `${(Math.random() - 0.5) * 700}deg`);
-    petal.style.animationDelay = `${Math.random() * 3.2}s`;
-    petal.style.animationDuration = `${6 + Math.random() * 5}s`;
-    petal.style.opacity = '0';
-    petalField.appendChild(petal);
-  }
+function advanceSlide() {
+  updateSlide(currentIndex + 1);
 }
 
-createSparkles();
-createPetals();
+function startSlideshow() {
+  isPlaying = true;
+  togglePlayBtn.textContent = 'Pause';
+  slideshowTimer = setInterval(advanceSlide, 4200);
+}
+
+function stopSlideshow() {
+  isPlaying = false;
+  togglePlayBtn.textContent = 'Play';
+  clearInterval(slideshowTimer);
+}
+
+function setAudioSource() {
+  songStatus.textContent = 'Waiting for song';
+  audio.removeAttribute('src');
+  audio.load();
+}
+
+function bindAudioEvents() {
+  audio.addEventListener('play', () => {
+    songStatus.textContent = 'Playing';
+  });
+
+  audio.addEventListener('pause', () => {
+    if (!audio.ended) {
+      songStatus.textContent = 'Paused';
+    }
+  });
+
+  audio.addEventListener('error', () => {
+    songStatus.textContent = 'Choose a valid song file';
+  });
+}
+
+songFileInput.addEventListener('change', (event) => {
+  const file = event.target.files && event.target.files[0];
+
+  if (!file) {
+    return;
+  }
+
+  const objectURL = URL.createObjectURL(file);
+  audio.src = objectURL;
+  audio.load();
+  songStatus.textContent = 'Ready to play';
+  audio.play().catch(() => {});
+});
+
+togglePlayBtn.addEventListener('click', () => {
+  if (isPlaying) {
+    stopSlideshow();
+    if (!audio.paused) {
+      audio.pause();
+    }
+  } else {
+    startSlideshow();
+    if (audio.src) {
+      audio.play().catch(() => {});
+    }
+  }
+});
+
+nextSlideBtn.addEventListener('click', () => {
+  advanceSlide();
+});
+
+const initialSlide = slides[0];
+initialSlide.style.backgroundImage = `url("${imageFiles[0]}")`;
+initialSlide.classList.add('active');
+
+const secondSlide = slides[1];
+secondSlide.style.backgroundImage = `url("${imageFiles[1]}")`;
+
+startSlideshow();
+bindAudioEvents();
+setAudioSource();

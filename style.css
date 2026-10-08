@@ -1,17 +1,14 @@
 :root {
-  --bg1: #ffefe2;
-  --bg2: #ffd4dd;
-  --bg3: #ffe9b5;
-  --rose: #ff698f;
-  --pink: #ff8ca1;
-  --peach: #ffc29a;
-  --gold: #ffd76b;
-  --leaf: #5dbb7b;
-  --leaf-dark: #2e8b57;
-  --gift: #f7f7ff;
-  --gift-shadow: #d6d1ff;
-  --ribbon: #ff4b7d;
-  --text: #6f3550;
+  --bg-dark: #170d1f;
+  --bg-mid: #291733;
+  --card: rgba(26, 18, 35, 0.66);
+  --card-border: rgba(255, 255, 255, 0.14);
+  --text-main: #fdf2f8;
+  --text-soft: #e9d5ff;
+  --pink: #f9a8d4;
+  --rose: #f472b6;
+  --lavender: #c4b5fd;
+  --gold: #f5d48a;
 }
 
 * {
@@ -20,224 +17,280 @@
 
 html, body {
   margin: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 38%, var(--bg3) 100%);
+  min-height: 100%;
+  background: linear-gradient(135deg, var(--bg-dark), var(--bg-mid));
+  color: var(--text-main);
+  font-family: "Inter", sans-serif;
 }
 
 body {
+  min-height: 100vh;
   display: grid;
   place-items: center;
-}
-
-.scene {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 15%, rgba(255,255,255,0.9), rgba(255,255,255,0) 25%),
-    linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 100%);
+  position: relative;
 }
 
-.sun-glow {
+.light {
   position: absolute;
-  width: 560px;
-  height: 560px;
-  left: 50%;
-  top: -140px;
-  transform: translateX(-50%);
-  background: radial-gradient(circle, rgba(255, 243, 168, 0.95) 0%, rgba(255, 235, 155, 0.45) 28%, rgba(255,255,255,0) 70%);
+  width: 30rem;
+  height: 30rem;
   border-radius: 50%;
-  animation: glow 5s ease-in-out infinite alternate;
-}
-
-.sparkles, .petal-field {
-  position: absolute;
-  inset: 0;
+  filter: blur(80px);
+  opacity: 0.38;
   pointer-events: none;
 }
 
-.sparkle {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: rgba(255,255,255,0.9);
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(255,255,255,0.9);
-  animation: twinkle 2.5s ease-in-out infinite;
+.light-one {
+  background: rgba(244, 114, 182, 0.4);
+  top: -6rem;
+  left: -6rem;
 }
 
-.petal {
-  position: absolute;
-  width: 16px;
-  height: 26px;
-  background: linear-gradient(180deg, rgba(255, 143, 175, 1), rgba(255, 86, 133, 0.9));
-  border-radius: 70% 70% 50% 50%;
-  opacity: 0.8;
-  transform-origin: center bottom;
-  box-shadow: inset -2px -3px rgba(255,255,255,0.25);
-  animation: petalFall linear forwards;
+.light-two {
+  background: rgba(196, 181, 253, 0.32);
+  right: -4rem;
+  bottom: -6rem;
 }
 
-.message-wrap {
-  position: absolute;
-  left: 50%;
-  top: 16%;
-  transform: translateX(-50%);
-  z-index: 20;
+.page-shell {
+  width: min(1040px, calc(100vw - 32px));
+  position: relative;
+  z-index: 1;
 }
 
-.message {
-  font-size: clamp(22px, 3vw, 52px);
-  letter-spacing: 0.15em;
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.04);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text);
-  font-weight: 700;
+  color: var(--text-soft);
+}
+
+h1 {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+  font-size: clamp(2.3rem, 5vw, 4.4rem);
+  letter-spacing: 0.04em;
+  color: #fff4f7;
+}
+
+.video-stage {
+  position: relative;
+  width: 100%;
+  height: min(70vh, 680px);
+  min-height: 430px;
+  border-radius: 32px;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 26px 60px rgba(9, 2, 16, 0.45);
+}
+
+.slides {
+  position: absolute;
+  inset: 0;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
   opacity: 0;
-  transform: translateY(30px);
-  animation: mainText 2.9s ease 0.7s forwards;
-  text-shadow: 0 0 16px rgba(255,255,255,0.6);
+  transform: scale(1.06);
+  transition: opacity 1.5s ease, transform 5s ease;
+  filter: saturate(1.08) contrast(1.02) brightness(0.9);
 }
 
-.gift-box {
+.slide::after {
+  content: "";
   position: absolute;
-  left: 50%;
-  bottom: 8%;
-  width: 260px;
-  height: 200px;
-  transform: translateX(-50%) scale(0.9);
-  animation: boxReveal 1.6s cubic-bezier(.18,.89,.32,1.28) 0.2s forwards;
-  z-index: 8;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.35));
 }
 
-.lid {
-  position: absolute;
-  left: 50%;
-  top: 24px;
-  width: 260px;
-  height: 70px;
-  transform: translateX(-50%);
-  background: linear-gradient(180deg, #fdfdff, #f2efff);
-  border-radius: 14px;
-  box-shadow: 0 14px 24px rgba(127, 122, 194, 0.15);
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
 }
 
-.box-top {
+.overlay {
   position: absolute;
-  left: 50%;
-  top: 72px;
-  width: 260px;
-  height: 20px;
-  transform: translateX(-50%);
-  background: linear-gradient(180deg, #f6f3ff, #ebebff);
-  border-radius: 10px;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px 32px 24px;
+  background: linear-gradient(180deg, rgba(12, 7, 16, 0.14), rgba(12, 7, 16, 0.6));
   z-index: 2;
 }
 
-.box-face {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 260px;
-  height: 120px;
-  transform: translateX(-50%);
-  background: linear-gradient(180deg, #fffdfd, #f5f4ff);
-  border-radius: 18px;
-  box-shadow: inset 0 0 0 4px rgba(240, 236, 255, 0.9), 0 18px 30px rgba(119, 97, 168, 0.14);
-}
-
-.ribbon {
-  position: absolute;
-  background: linear-gradient(180deg, #ff5d8f, #f53174);
+.caption-pill {
+  align-self: flex-start;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fdf2f8;
   border-radius: 999px;
-  box-shadow: inset 0 -8px 8px rgba(255,255,255,0.15);
+  padding: 8px 14px;
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-.ribbon-left, .ribbon-right {
-  width: 20px;
-  height: 150px;
-  top: 10px;
+.lyrics {
+  margin-top: 14px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.3rem, 4vw, 4rem);
+  line-height: 0.96;
+  color: #fff;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  max-width: 500px;
 }
 
-.ribbon-left { left: 118px; }
-.ribbon-right { right: 118px; }
-
-.ribbon-center {
-  width: 138px;
-  height: 34px;
-  left: 50%;
-  top: 48px;
-  transform: translateX(-50%);
-}
-
-.bouquet {
+.controls {
   position: absolute;
-  left: 50%;
-  bottom: 28%;
-  width: 240px;
-  height: 240px;
-  transform: translateX(-50%) translateY(200px) rotate(-8deg);
-  animation: bouquetRise 2.6s cubic-bezier(.24,1,.35,1) 0.9s forwards;
-  z-index: 10;
+  right: 22px;
+  bottom: 22px;
+  display: flex;
+  gap: 12px;
+  z-index: 3;
 }
 
-.stem {
-  position: absolute;
-  bottom: 0;
-  width: 10px;
-  height: 140px;
-  background: linear-gradient(180deg, #a9df8d, #46b86b 90%);
-  border-radius: 12px;
-  transform-origin: bottom center;
+.control-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: linear-gradient(135deg, #f9a8d4, #c4b5fd);
+  color: #1b1028;
+  box-shadow: 0 10px 26px rgba(249, 168, 212, 0.3);
 }
 
-.stem-1 { left: 28px; transform: rotate(-12deg); }
-.stem-2 { left: 78px; transform: rotate(-3deg); }
-.stem-3 { left: 132px; transform: rotate(3deg); }
-.stem-4 { left: 182px; transform: rotate(12deg); }
-
-.flower {
-  position: absolute;
-  bottom: 120px;
-  width: 76px;
-  height: 76px;
-  border-radius: 50%;
-  animation: sway 4s ease-in-out infinite alternate;
+.control-btn:hover {
+  transform: translateY(-2px);
 }
 
-.flower-1 { left: 8px; }
-.flower-2 { left: 72px; bottom: 132px; animation-delay: 0.5s; }
-.flower-3 { left: 138px; bottom: 118px; animation-delay: 1s; }
-
-.petal {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 26px;
-  height: 34px;
-  margin-left: -13px;
-  margin-top: -17px;
-  background: linear-gradient(180deg, #ffbdd2, #ff8db5);
-  border-radius: 70% 70% 65% 65%;
-  box-shadow: inset -3px -4px rgba(255,255,255,0.2);
+.control-btn.ghost {
+  background: rgba(255,255,255,0.08);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: none;
 }
 
-.petal-1 { transform: rotate(0deg) translateY(-16px); }
-.petal-2 { transform: rotate(90deg) translateY(-16px); }
-.petal-3 { transform: rotate(180deg) translateY(-16px); }
-.petal-4 { transform: rotate(270deg) translateY(-16px); }
+.player-panel {
+  background: rgba(18, 12, 23, 0.72);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  padding: 18px 20px 16px;
+  margin-top: 18px;
+  backdrop-filter: blur(10px);
+}
 
-.flower-2 .petal { background: linear-gradient(180deg, #ffd8e7, #ff9bbd); }
-.flower-3 .petal { background: linear-gradient(180deg, #ffe7a8, #ffcc72); }
+.music-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
 
-.center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 18px;
+.eyebrow {
+  margin: 0 0 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  font-size: 0.72rem;
+  color: var(--text-soft);
+}
+
+.music-meta h2 {
+  margin: 0;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+}
+
+.music-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.upload-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, rgba(249,168,212,0.14), rgba(196,181,253,0.15));
+  border: 1px solid rgba(255,255,255,0.14);
+  color: var(--text-main);
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+#songFile {
+  display: none;
+}
+
+.status-dot {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text-soft);
+  font-size: 0.75rem;
+}
+
+#audioPlayer {
+  width: 100%;
+  accent-color: #f9a8d4;
+}
+
+@media (max-width: 600px) {
+  .video-stage {
+    min-height: 380px;
+    height: 60vh;
+  }
+
+  .overlay {
+    padding: 18px 18px 20px;
+  }
+
+  .controls {
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+    justify-content: space-between;
+  }
+
+  .control-btn {
+    flex: 1;
+  }
+
+  .music-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
   height: 18px;
   margin-left: -9px;
   margin-top: -9px;

@@ -3,64 +3,55 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flower Gift</title>
-    <meta name="description" content="A soft romantic flower gifting animation" />
+    <title>أنا من غيرك</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="scene">
-      <div class="sun-glow"></div>
-      <div class="sparkles" id="sparkles"></div>
-      <div class="petal-field" id="petalField"></div>
+    <div class="light light-one"></div>
+    <div class="light light-two"></div>
 
-      <div class="message-wrap">
-        <div class="message">For You</div>
-      </div>
+    <main class="page-shell">
+      <header class="topbar">
+        <span class="badge">For my love</span>
+        <h1>أنا من غيرك</h1>
+      </header>
 
-      <div class="gift-box">
-        <div class="lid"></div>
-        <div class="box-top"></div>
-        <div class="box-face"></div>
-        <div class="ribbon ribbon-left"></div>
-        <div class="ribbon ribbon-right"></div>
-        <div class="ribbon ribbon-center"></div>
-      </div>
-
-      <div class="bouquet">
-        <div class="stem stem-1"></div>
-        <div class="stem stem-2"></div>
-        <div class="stem stem-3"></div>
-        <div class="stem stem-4"></div>
-
-        <div class="flower flower-1">
-          <span class="petal petal-1"></span>
-          <span class="petal petal-2"></span>
-          <span class="petal petal-3"></span>
-          <span class="petal petal-4"></span>
-          <span class="center"></span>
+      <section class="video-stage" aria-label="Couple slideshow">
+        <div class="slides" id="slides">
+          <div class="slide active" aria-hidden="false"></div>
+          <div class="slide next" aria-hidden="true"></div>
         </div>
 
-        <div class="flower flower-2">
-          <span class="petal petal-1"></span>
-          <span class="petal petal-2"></span>
-          <span class="petal petal-3"></span>
-          <span class="petal petal-4"></span>
-          <span class="center"></span>
+        <div class="overlay">
+          <div class="caption-pill" id="caption-pill">Forever story</div>
+          <div class="lyrics" id="lyrics">أنا من غيرك</div>
         </div>
 
-        <div class="flower flower-3">
-          <span class="petal petal-1"></span>
-          <span class="petal petal-2"></span>
-          <span class="petal petal-3"></span>
-          <span class="petal petal-4"></span>
-          <span class="center"></span>
+        <div class="controls">
+          <button id="togglePlay" class="control-btn" type="button" aria-label="Pause slideshow">Pause</button>
+          <button id="nextSlide" class="control-btn ghost" type="button" aria-label="Next photo">Next</button>
+        </div>
+      </section>
+
+      <section class="player-panel" aria-label="Music player">
+        <div class="music-meta">
+          <div>
+            <p class="eyebrow">Soundtrack</p>
+            <h2>أنا من غيرك</h2>
+          </div>
+          <div class="music-actions">
+            <label class="upload-btn" for="songFile">Choose song</label>
+            <input id="songFile" type="file" accept="audio/*" />
+            <span class="status-dot" id="songStatus">Waiting for song</span>
+          </div>
         </div>
 
-        <div class="leaf leaf-1"></div>
-        <div class="leaf leaf-2"></div>
-        <div class="leaf leaf-3"></div>
-      </div>
-    </div>
+        <audio id="audioPlayer" controls preload="metadata" aria-label="Audio player"></audio>
+      </section>
+    </main>
 
     <script src="script.js"></script>
   </body>
