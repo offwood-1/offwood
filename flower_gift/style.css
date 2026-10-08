@@ -1,0 +1,326 @@
+:root {
+  --bg1: #ffefe2;
+  --bg2: #ffd4dd;
+  --bg3: #ffe9b5;
+  --rose: #ff698f;
+  --pink: #ff8ca1;
+  --peach: #ffc29a;
+  --gold: #ffd76b;
+  --leaf: #5dbb7b;
+  --leaf-dark: #2e8b57;
+  --gift: #f7f7ff;
+  --gift-shadow: #d6d1ff;
+  --ribbon: #ff4b7d;
+  --text: #6f3550;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 38%, var(--bg3) 100%);
+}
+
+body {
+  display: grid;
+  place-items: center;
+}
+
+.scene {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 15%, rgba(255,255,255,0.9), rgba(255,255,255,0) 25%),
+    linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 100%);
+}
+
+.sun-glow {
+  position: absolute;
+  width: 560px;
+  height: 560px;
+  left: 50%;
+  top: -140px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(255, 243, 168, 0.95) 0%, rgba(255, 235, 155, 0.45) 28%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+  animation: glow 5s ease-in-out infinite alternate;
+}
+
+.sparkles, .petal-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sparkle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255,255,255,0.9);
+  animation: twinkle 2.5s ease-in-out infinite;
+}
+
+.petal-field {
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  width: 16px;
+  height: 26px;
+  background: linear-gradient(180deg, rgba(255, 143, 175, 1), rgba(255, 86, 133, 0.9));
+  border-radius: 70% 70% 50% 50%;
+  opacity: 0.8;
+  transform-origin: center bottom;
+  box-shadow: inset -2px -3px rgba(255,255,255,0.25);
+  animation: petalFall linear forwards;
+}
+
+.message-wrap {
+  position: absolute;
+  left: 50%;
+  top: 16%;
+  transform: translateX(-50%);
+  z-index: 20;
+}
+
+.message {
+  font-size: clamp(22px, 3vw, 52px);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text);
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: mainText 2.9s ease 0.7s forwards;
+  text-shadow: 0 0 16px rgba(255,255,255,0.6);
+}
+
+.gift-box {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  width: 260px;
+  height: 200px;
+  transform: translateX(-50%) scale(0.9);
+  animation: boxReveal 1.6s cubic-bezier(.18,.89,.32,1.28) 0.2s forwards;
+  z-index: 8;
+}
+
+.lid {
+  position: absolute;
+  left: 50%;
+  top: 24px;
+  width: 260px;
+  height: 70px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #fdfdff, #f2efff);
+  border-radius: 14px;
+  box-shadow: 0 14px 24px rgba(127, 122, 194, 0.15);
+}
+
+.box-top {
+  position: absolute;
+  left: 50%;
+  top: 72px;
+  width: 260px;
+  height: 20px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #f6f3ff, #ebebff);
+  border-radius: 10px;
+  z-index: 2;
+}
+
+.box-face {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 260px;
+  height: 120px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #fffdfd, #f5f4ff);
+  border-radius: 18px;
+  box-shadow: inset 0 0 0 4px rgba(240, 236, 255, 0.9), 0 18px 30px rgba(119, 97, 168, 0.14);
+}
+
+.ribbon {
+  position: absolute;
+  background: linear-gradient(180deg, #ff5d8f, #f53174);
+  border-radius: 999px;
+  box-shadow: inset 0 -8px 8px rgba(255,255,255,0.15);
+}
+
+.ribbon-left, .ribbon-right {
+  width: 20px;
+  height: 150px;
+  top: 10px;
+}
+
+.ribbon-left { left: 118px; }
+.ribbon-right { right: 118px; }
+
+.ribbon-center {
+  width: 138px;
+  height: 34px;
+  left: 50%;
+  top: 48px;
+  transform: translateX(-50%);
+}
+
+.bouquet {
+  position: absolute;
+  left: 50%;
+  bottom: 28%;
+  width: 240px;
+  height: 240px;
+  transform: translateX(-50%) translateY(200px) rotate(-8deg);
+  animation: bouquetRise 2.6s cubic-bezier(.24,1,.35,1) 0.9s forwards;
+  z-index: 10;
+}
+
+.stem {
+  position: absolute;
+  bottom: 0;
+  width: 10px;
+  height: 140px;
+  background: linear-gradient(180deg, #a9df8d, #46b86b 90%);
+  border-radius: 12px;
+  transform-origin: bottom center;
+}
+
+.stem-1 { left: 28px; transform: rotate(-12deg); }
+.stem-2 { left: 78px; transform: rotate(-3deg); }
+.stem-3 { left: 132px; transform: rotate(3deg); }
+.stem-4 { left: 182px; transform: rotate(12deg); }
+
+.flower {
+  position: absolute;
+  bottom: 120px;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  animation: sway 4s ease-in-out infinite alternate;
+}
+
+.flower-1 { left: 8px; }
+.flower-2 { left: 72px; bottom: 132px; animation-delay: 0.5s; }
+.flower-3 { left: 138px; bottom: 118px; animation-delay: 1s; }
+
+.petal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 26px;
+  height: 34px;
+  margin-left: -13px;
+  margin-top: -17px;
+  background: linear-gradient(180deg, #ffbdd2, #ff8db5);
+  border-radius: 70% 70% 65% 65%;
+  box-shadow: inset -3px -4px rgba(255,255,255,0.2);
+}
+
+.petal-1 { transform: rotate(0deg) translateY(-16px); }
+.petal-2 { transform: rotate(90deg) translateY(-16px); }
+.petal-3 { transform: rotate(180deg) translateY(-16px); }
+.petal-4 { transform: rotate(270deg) translateY(-16px); }
+
+.flower-2 .petal { background: linear-gradient(180deg, #ffd8e7, #ff9bbd); }
+.flower-3 .petal { background: linear-gradient(180deg, #ffe7a8, #ffcc72); }
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  margin-left: -9px;
+  margin-top: -9px;
+  background: radial-gradient(circle, #ffe7a3 0%, #f5c74f 55%, #d89a1d 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 16px rgba(255,198,66,0.8);
+}
+
+.leaf {
+  position: absolute;
+  bottom: 58px;
+  width: 44px;
+  height: 22px;
+  background: linear-gradient(180deg, #78d28f, #2fa26a);
+  border-radius: 100% 0 100% 0;
+  transform-origin: center center;
+  box-shadow: inset -4px -5px rgba(26,116,70,0.2);
+}
+
+.leaf-1 { left: 36px; transform: rotate(-28deg); }
+.leaf-2 { left: 104px; bottom: 72px; transform: rotate(25deg); }
+.leaf-3 { left: 162px; bottom: 58px; transform: rotate(-12deg); }
+
+@keyframes boxReveal {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.2) translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1) translateY(0);
+  }
+}
+
+@keyframes bouquetRise {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(200px) rotate(-12deg) scale(0.6);
+  }
+  55% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(26px) rotate(-2deg) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) rotate(-8deg) scale(1);
+  }
+}
+
+@keyframes sway {
+  0% { transform: rotate(-10deg) translateY(0); }
+  100% { transform: rotate(10deg) translateY(-6px); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.6); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes glow {
+  0% { transform: translateX(-50%) scale(0.96); opacity: 0.7; }
+  100% { transform: translateX(-50%) scale(1.08); opacity: 1; }
+}
+
+@keyframes petalFall {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(0.8);
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--dx), 1080px, 0) rotate(var(--rot)) scale(1.2);
+  }
+}
+
+@keyframes mainText {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
