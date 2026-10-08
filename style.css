@@ -82,11 +82,13 @@ body {
 
 h1 {
   margin: 0;
+  max-width: 78%;
   font-family: "Cormorant Garamond", serif;
   font-weight: 600;
-  font-size: clamp(2.3rem, 5vw, 4.4rem);
-  letter-spacing: 0.04em;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  line-height: 1.08;
   color: #fff4f7;
+  text-align: right;
 }
 
 .video-stage {
@@ -265,6 +267,27 @@ h1 {
 }
 
 @media (max-width: 600px) {
+  body {
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .page-shell {
+    margin: 20px auto;
+  }
+
+  .topbar {
+    display: block;
+  }
+
+  h1 {
+    max-width: none;
+    margin-top: 12px;
+    font-size: clamp(1.45rem, 6vw, 1.9rem);
+    text-align: left;
+  }
+
   .video-stage {
     min-height: 380px;
     height: 60vh;
